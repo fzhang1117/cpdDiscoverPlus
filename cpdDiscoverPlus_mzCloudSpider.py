@@ -45,7 +45,6 @@ def func_mzcloudSearch(query):
             print('The compound {} find {} items when searching in mzCloud.'.format(query, return_num))
             if return_num != 0:
                 RefID_List = [re.split('Reference', i)[1] for i in mzcloudSearch_return]
-                print(RefID_List)
                 return RefID_List
             else:
                 print('{} failed match mzCloud database, please try another database.'.format(query))
@@ -53,6 +52,14 @@ def func_mzcloudSearch(query):
 
     except socket.timeout as e:
         print("----socket timeout:", url)
+        return 0
+
+    except error.HTTPError as e:
+        print('HTTPError : {}'.format(e.code))
+        return 0
+
+    except error.URLError as e:
+        print('URLError : {}'.format(e.reason))
         return 0
 
 
@@ -85,6 +92,14 @@ def func_mzCloudReference(query, formula, RefID_List):
         except socket.timeout as e:
             print("----socket timeout:", url)
             return 0
+
+        except error.HTTPError as e:
+            print('HTTPError : {}'.format(e.code))
+            return 0
+
+        except error.URLError as e:
+            print('URLError : {}'.format(e.reason))
+            return 0
     
     print('{} can not match any mzCloud Reference\nmatch failed return 0'.format(query))
     return 0
@@ -116,11 +131,11 @@ with open(fl_query, 'rb') as fh_query:
                 print('{} exist as Ion format in vivo, please fill the information manually'.format(query))
                 res_query = [query, mass, 'check it manually', mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
             else:
-                mzCloudSearch = 'unmatched'
+                mzCloudSearch = 'unmatch'
                 res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
 
         else:
-            mzCloudSearch = 'unmatched'
+            mzCloudSearch = 'unmatch'
             res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
         with open(fl_path_tmp + '/{}.idx.txt'.format(idx), 'wb') as fh_tmp:
             fh_tmp.write('\t'.join(res_query).encode('utf-8'))
