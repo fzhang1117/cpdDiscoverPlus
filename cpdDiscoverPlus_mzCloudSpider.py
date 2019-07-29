@@ -6,9 +6,9 @@
 
 @Created Time :   2019-07-27
 
-@File Name    :   cpdDiscoverPlus_kegg_found.py
+@File Name    :   cpdDiscoverPlus_mzCloudSpider.py
 
-@Description  :   using this script to sumamry and search kegg id in batch
+@Description  :   search mzCloudSpider by compound name and double checked by formula, expand the compound information in batch
 
 '''
 import re, sys, random, time, os
