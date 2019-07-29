@@ -31,7 +31,10 @@ if not os.path.exists(fl_path_tmp):
 
 
 #### function defenition ####
+
 def func_mzcloudSearch(query):
+    greek_letterz = [chr(code) for code in range(945, 970)]
+    query = re.sub('[' + ''.join(greek_letterz) + ']', '', query)
     searchString = quote(query)
     url = 'https://www.mzcloud.org/compound/Search?Query=' + searchString
     try:
@@ -42,6 +45,7 @@ def func_mzcloudSearch(query):
             print('The compound {} find {} items when searching in mzCloud.'.format(query, return_num))
             if return_num != 0:
                 RefID_List = [re.split('Reference', i)[1] for i in mzcloudSearch_return]
+                print(RefID_List)
                 return RefID_List
             else:
                 print('{} failed match mzCloud database, please try another database.'.format(query))
@@ -60,8 +64,11 @@ def func_mzCloudReference(query, formula, RefID_List):
             with urlopen(url) as f:
                 page = f.read().decode('utf-8')
                 formulaSearch = re.findall('Formula:.*\r', page)[0]
-                formulaSearch = re.sub('<SUB>|</SUB>', '', formulaSearch)
+                formulaSearch = re.sub('<SUB>|</SUB>', '', formulaSearch, flags = re.I)
                 formulaSearch = re.split('<Span>|</Span>', formulaSearch)[1]
+                if len(formulaSearch.split('&nbsp')) > 1:
+                    formulaSearch = formulaSearch.split('&nbsp')[0]
+                    return -1
                 if formula == formulaSearch:
                     print('{} matched the mzCloud Reference {}\nmatch successful!'.format(query, RefID))
                     soup = BeautifulSoup(page, 'lxml')
@@ -74,14 +81,13 @@ def func_mzCloudReference(query, formula, RefID_List):
                     return dic_tmp
                 else:
                     print('{} can not match any mzCloud Reference {} \nmatch faild'.format(query, RefID))
-                
-                print('{} can not match any mzCloud Reference\nmatch failed return 0'.format(query))
-                return 0
-
+        
         except socket.timeout as e:
             print("----socket timeout:", url)
             return 0
-             
+    
+    print('{} can not match any mzCloud Reference\nmatch failed return 0'.format(query))
+    return 0
 
 #### load the query file ####
 with open(fl_query, 'rb') as fh_query:
@@ -96,7 +102,7 @@ with open(fl_query, 'rb') as fh_query:
         time.sleep(random.uniform(0.2, 5))
         if RefID_List != 0:
             mzSearchRes = func_mzCloudReference(query, formula, RefID_List)
-            if mzSearchRes != 0:
+            if mzSearchRes != 0 and mzSearchRes != -1:
                 mzCloudSearch = 'matched'
                 KeySearch = ['InChI Key', 'InChI', 'CAS', 'PubChem', 'ChemSpider', 'KEGG', 'HMDb', 'ChEMBL', 'Other Names']
                 res_query = [query, mass, formula, mzCloudSearch]
@@ -105,9 +111,14 @@ with open(fl_query, 'rb') as fh_query:
                         res_query.append(mzSearchRes[key])
                     else:
                         res_query.append('-')
+            elif mzSearchRes == -1:
+                mzCloudSearch = 'Ion'
+                print('{} exist as Ion format in vivo, please fill the information manually'.format(query))
+                res_query = [query, mass, 'check it manually', mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
             else:
                 mzCloudSearch = 'unmatched'
                 res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
+
         else:
             mzCloudSearch = 'unmatched'
             res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']

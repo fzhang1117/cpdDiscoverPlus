@@ -1,28 +1,14 @@
-cpdName	mass	Formula
-(+)-Syringaresinol	418.1626	C22H26O8
-(+)-Syringaresinol	418.1628	C22H26O8
-(1S)-1,5-Anhydro-2-O-(6-deoxy-α-L-mannopyranosyl)-1-[5,7-dihydroxy-2-(4-hydroxyphenyl)-4-oxo-4H-chromen-6-yl]-D-glucitol	578.1629	C27 H30 O14
-(1S)-1,5-Anhydro-2-O-(6-deoxy-α-L-mannopyranosyl)-1-[5,7-dihydroxy-2-(4-hydroxyphenyl)-4-oxo-4H-chromen-6-yl]-D-glucitol	578.1631	C27 H30 O14
-(1S)-1,5-Anhydro-2-O-(6-deoxy-α-L-mannopyranosyl)-1-[5,7-dihydroxy-2-(4-hydroxyphenyl)-4-oxo-4H-chromen-6-yl]-D-glucitol	578.1636	C27 H30 O14
-(1S)-1,5-Anhydro-2-O-(6-deoxy-α-L-mannopyranosyl)-1-[5,7-dihydroxy-2-(4-hydroxyphenyl)-4-oxo-4H-chromen-6-yl]-D-glucitol	578.1638	C27 H30 O14
-(1ξ)-1,5-Anhydro-1-[2-(3,4-dihydroxyphenyl)-5,7-dihydroxy-4-oxo-4H-chromen-8-yl]-D-galactitol	448.1005	C21 H20 O11
-(2E)-3-(4-Hydroxyphenyl)-N-[2-(4-hydroxyphenyl)ethyl]acrylamide	283.1204	C17 H17 N O3
-(2E)-3-[4-({2-O-[(2S,3R,4R)-3,4-Dihydroxy-4-(hydroxymethyl)tetrahydro-2-furanyl]-β-D-glucopyranosyl}oxy)-3-methoxyphenyl]acrylic acid	488.1531	C21 H28 O13
-(2R)-7-Methoxy-3-oxo-3,4-dihydro-2H-1,4-benzoxazin-2-yl β-D-glucopyranoside	357.106	C15 H19 N O9
-(2S)-7-Hydroxy-3-oxo-3,4-dihydro-2H-1,4-benzoxazin-2-yl β-D-glucopyranoside	343.0902	C14 H17 N O9
-(3aR,4aS,5R,7aS,8S,9aR)-5-Hydroxy-4a,8-dimethyl-3-methyleneoctahydroazuleno[6,5-b]furan-2,6(3H,4H)-dione	264.1357	C15 H20 O4
-(3aR,4aS,5R,7aS,8S,9aR)-5-Hydroxy-4a,8-dimethyl-3-methyleneoctahydroazuleno[6,5-b]furan-2,6(3H,4H)-dione	264.1358	C15 H20 O4
-(3R,5R)-1,3,5-Trihydroxy-4-{[(2E)-3-(4-hydroxy-3-methoxyphenyl)-2-propenoyl]oxy}cyclohexanecarboxylic acid	368.1101	C17 H20 O9
-(3R,5R)-1,3,5-Trihydroxy-4-{[(2E)-3-(4-hydroxy-3-methoxyphenyl)-2-propenoyl]oxy}cyclohexanecarboxylic acid	368.1101	C17 H20 O9
-(3R,5R)-1,3,5-Trihydroxy-4-{[(2E)-3-(4-hydroxy-3-methoxyphenyl)-2-propenoyl]oxy}cyclohexanecarboxylic acid	368.1101	C17 H20 O9
-{(1R,2R)-2-[(2Z)-5-(Hexopyranosyloxy)-2-penten-1-yl]-3-oxocyclopentyl}acetic acid	388.1736	C18 H28 O9
-{(1R,2R)-2-[(2Z)-5-(Hexopyranosyloxy)-2-penten-1-yl]-3-oxocyclopentyl}acetic acid	388.1735	C18 H28 O9
-{(1R,2R)-2-[(2Z)-5-(Hexopyranosyloxy)-2-penten-1-yl]-3-oxocyclopentyl}acetic acid	388.1734	C18 H28 O9
-{(1R,2R)-2-[(2Z)-5-(Hexopyranosyloxy)-2-penten-1-yl]-3-oxocyclopentyl}acetic acid	388.1736	C18 H28 O9
-1,5-Anhydro-1-[5,7-dihydroxy-2-(4-hydroxyphenyl)-4-oxo-4H-chromen-6-yl]hexitol	432.1053	C21 H20 O10
-1,5-Anhydro-6-deoxy-2-O-(6-deoxy-α-L-mannopyranosyl)-1-[5,7-dihydroxy-2-(4-hydroxyphenyl)-4-oxo-4H-chromen-6-yl]hexitol	562.1688	C27 H30 O13
-1,5-Anhydro-6-deoxy-2-O-(6-deoxy-α-L-mannopyranosyl)-1-[5,7-dihydroxy-2-(4-hydroxyphenyl)-4-oxo-4H-chromen-6-yl]hexitol	562.1689	C27 H30 O13
-2-(hydroxymethyl)-6-[(E)-4-(1,2,4-trihydroxy-2,6,6-trimethylcyclohexyl)but-3-en-2-yl]oxyoxane-3,4,5-triol	406.2204	C19 H34 O9
-2,3,4,9-Tetrahydro-1H-β-carboline-3-carboxylic acid	216.0895	C12 H12 N2 O2
-2-Amino-1,3,4-octadecanetriol	317.2927	C18 H39 N O3
-2-Amino-1,3,4-octadecanetriol	317.2925	C18 H39 N O3
+cpdName	mass	formula
+5,8-Dihydroxy-4-oxo-1,2,3,4-tetrahydro-1-naphthalenyl 6-O-(3,4,5-trihydroxybenzoyl)-β-D-glucopyranoside	508.1216	C23H24O13
+7-Hydroxy-2-(4-hydroxyphenyl)-4-oxo-3,4-dihydro-2H-chromen-5-yl β-D-glucopyranoside	434.1214	C21H22O10
+Acetophenone	120.0574	C8H8O
+Acetophenone	120.0574	C8H8O
+Adenosine	267.0964	C10H13N5O4
+Betaine	117.0789	C5H11NO2
+Cetrimonium	283.3236	C19H41N
+Choline	103.0996	C5H13NO
+Cyanidin	286.0473	C15H10O6
+Cyanidin	286.0474	C15H10O6
+Cyanidin	286.0471	C15H10O6
+Cytidine	243.0853	C9H13N3O5
+Cytidine	243.0853	C9H13N3O5
