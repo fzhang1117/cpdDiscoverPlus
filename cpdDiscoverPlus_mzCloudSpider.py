@@ -11,13 +11,19 @@
 @Description  :   using this script to sumamry and search kegg id in batch
 
 '''
-import re, sys, random, time
+import re, sys, random, time, os
 from urllib.request import urlopen
 from urllib.parse import urlencode, quote
 from bs4 import BeautifulSoup
 from itertools import islice
 
 fl_query = sys.argv[1]
+fl_path_tmp = 'tmp/' + fl_query.split('.txt')[0] + time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+
+if not os.path.exists(fl_path_tmp):
+    os.makedirs(fl_path_tmp)
+    print("--- new folder {} has been created to store collected data ---".format(fl_path_tmp))
+
 
 #### function defenition ####
 def func_mzcloudSearch(query):
@@ -27,7 +33,7 @@ def func_mzcloudSearch(query):
         page = f.read().decode('utf-8')
         mzcloudSearch_return = re.findall('ID: Reference[0-9]*', page)
         return_num = len(mzcloudSearch_return)
-        print('The compound', query, 'find', return_num, 'items when searching in mzCloud.')
+        print('The compound {} find {} items when searching in mzCloud.'.format(query, return_num))
         if return_num != 0:
             RefID_List = [re.split('Reference', i)[1] for i in mzcloudSearch_return]
             return RefID_List
@@ -46,7 +52,7 @@ def func_mzCloudReference(query, formula, RefID_List):
             formulaSearch = re.sub('<SUB>|</SUB>', '', formulaSearch)
             formulaSearch = re.split('<Span>|</Span>', formulaSearch)[1]
             if formula == formulaSearch:
-                print(query, 'matched the mzCloud Reference', RefID, '\nmatch successful!')
+                print('{} matched the mzCloud Reference {}\nmatch successful!'.format(query, RefID))
                 soup = BeautifulSoup(page, 'lxml')
                 ## Extract all table in the html page
                 dic_tmp = {}
@@ -67,7 +73,7 @@ def func_mzCloudReference(query, formula, RefID_List):
                 formulaSearch = re.sub('<SUB>|</SUB>', '', formulaSearch)
                 formulaSearch = re.split('<Span>|</Span>', formulaSearch)[1]
                 if formula == formulaSearch:
-                    print(query, 'matched the mzCloud Reference', RefID, '...\nmatch successful!')
+                    print('{} matched the mzCloud Reference {}\nmatch successful!'.format(query, RefID))
                     soup = BeautifulSoup(page, 'lxml')
                     ## Extract all table in the html page
                     dic_tmp = {}
@@ -83,34 +89,39 @@ def func_mzCloudReference(query, formula, RefID_List):
                 return 0
 
 #### load the query file ####
-with open(fl_query, 'rb') as fh_query:
-    res_merge = []
-    res_merge.append(['cpdName', 'mass', 'formula', 'mzCloudSearch', 'InCHI Key', 'InChI', 'CAS', 'PubChem', 'ChemSpider', 'KEGG', 'HMDb', 'ChEMBL', 'Other Names'])
-    for line in islice(fh_query, 1, None):
-        line = line.decode('utf-8').strip('\r\n').split('\t')
-        query, mass = line[0], line[1]
-        formula = line[2].replace(' ', '')
-        print(query, mass, formula)
-        RefID_List = func_mzcloudSearch(query)
-        time.sleep(random.uniform(0.2, 5))
-        if RefID_List != 0:
-            mzSearchRes = func_mzCloudReference(query, formula, RefID_List)
-            if mzSearchRes != 0:
-                mzCloudSearch = 'matched'
-                KeySearch = ['InChI Key', 'InChI', 'CAS', 'PubChem', 'ChemSpider', 'KEGG', 'HMDb', 'ChEMBL', 'Other Names']
-                res_query = [query, mass, formula, mzCloudSearch]
-                for key in KeySearch:
-                    if mzSearchRes.get(key) is not None:
-                        res_query.append(mzSearchRes[key])
-                    else:
-                        res_query.append('-')
+with open(fl_path_tmp + '\store_tmp.txt', 'a') as fh_path_tmp:
+    fh_path_tmp.writelines('\t'.join(['cpdName', 'mass', 'formula', 'mzCloudSearch', 'InCHI Key', 'InChI', 'CAS', 'PubChem', 'ChemSpider', 'KEGG', 'HMDb', 'ChEMBL', 'Other Names']))
+    fh_path_tmp.writelines('\n')
+    with open(fl_query, 'rb') as fh_query:
+        res_merge = []
+        res_merge.append(['cpdName', 'mass', 'formula', 'mzCloudSearch', 'InCHI Key', 'InChI', 'CAS', 'PubChem', 'ChemSpider', 'KEGG', 'HMDb', 'ChEMBL', 'Other Names'])
+        for line in islice(fh_query, 1, None):
+            line = line.decode('utf-8').strip('\r\n').split('\t')
+            query, mass = line[0], line[1]
+            formula = line[2].replace(' ', '')
+            print(query, mass, formula)
+            RefID_List = func_mzcloudSearch(query)
+            time.sleep(random.uniform(0.2, 5))
+            if RefID_List != 0:
+                mzSearchRes = func_mzCloudReference(query, formula, RefID_List)
+                if mzSearchRes != 0:
+                    mzCloudSearch = 'matched'
+                    KeySearch = ['InChI Key', 'InChI', 'CAS', 'PubChem', 'ChemSpider', 'KEGG', 'HMDb', 'ChEMBL', 'Other Names']
+                    res_query = [query, mass, formula, mzCloudSearch]
+                    for key in KeySearch:
+                        if mzSearchRes.get(key) is not None:
+                            res_query.append(mzSearchRes[key])
+                        else:
+                            res_query.append('-')
+                else:
+                    mzCloudSearch = 'unmatched'
+                    res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
             else:
                 mzCloudSearch = 'unmatched'
                 res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
-        else:
-            mzCloudSearch = 'unmatched'
-            res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
-        res_merge.append(res_query)
+            fh_path_tmp.writelines('\t'.join(res_query))
+            fh_path_tmp.writelines('\n')
+            res_merge.append(res_query)
 
 fl_output = fl_query.split('.txt')[0] + '_mzCloudSearch.txt'
 with open(fl_output, 'w') as fh_output:
