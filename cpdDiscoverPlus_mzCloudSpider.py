@@ -49,6 +49,7 @@ def func_mzcloudSearch(query):
 
     except socket.timeout as e:
         print("----socket timeout:", url)
+        return 0
 
 
 def func_mzCloudReference(query, formula, RefID_List):
@@ -79,6 +80,7 @@ def func_mzCloudReference(query, formula, RefID_List):
 
         except socket.timeout as e:
             print("----socket timeout:", url)
+            return 0
              
 
 #### load the query file ####
@@ -109,12 +111,12 @@ with open(fl_query, 'rb') as fh_query:
         else:
             mzCloudSearch = 'unmatched'
             res_query = [query, mass, formula, mzCloudSearch, '-', '-', '-', '-', '-', '-', '-', '-', '-']
-        with open(fl_path_tmp + '/{}.idx.txt'.format(idx), 'w') as fh_tmp:
-            fh_tmp.write('\t'.join(res_query))
+        with open(fl_path_tmp + '/{}.idx.txt'.format(idx), 'wb') as fh_tmp:
+            fh_tmp.write('\t'.join(res_query).encode('utf-8'))
         res_merge.append(res_query)
 
 fl_output = fl_query.split('.txt')[0] + '_mzCloudSearch.txt'
-with open(fl_output, 'w') as fh_output:
+with open(fl_output, 'wb') as fh_output:
     res_merge = ['\t'.join(i) for i in res_merge]
-    write_content = '\n'.join(res_merge)
+    write_content = '\n'.join(res_merge).encode('utf-8')
     fh_output.write(write_content)
