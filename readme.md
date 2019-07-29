@@ -2,6 +2,10 @@
 
 本工具集是针对cpdDiscover输出结果的代谢物注释插件，由一系列python脚本构成。主要基于网络编程方法，批量爬取各个代谢物注释信息，减少手动点击鼠标的麻烦。
 
+获取更新：
+
+https://github.com/fzhang1117/cpdDiscoverPlus
+
 
 
 ##### 说明 #####
