@@ -95,7 +95,7 @@ Cytidine	243.0853	C9H13N3O5	matched	UHDGCWIWMRVCDJ-XVFCMESISA-N	InChI=1S/C9H13N3
 
 **matched:** 在mzCloud中成功找到匹配项，并通过了结构式检验
 
-**unmatched：**未能成功在在mzCloud中得到匹配项，可能的原因有:
+**unmatched:**未能成功在在mzCloud中得到匹配项，可能的原因有:
 
 ​		mzCloud中未收录该化合物
 
