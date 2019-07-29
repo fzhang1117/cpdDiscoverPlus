@@ -68,7 +68,7 @@ def func_mzCloudReference(query, formula, RefID_List):
                 formulaSearch = re.split('<Span>|</Span>', formulaSearch)[1]
                 if formula == formulaSearch:
                     print(query, 'matched the mzCloud Reference', RefID, '...\nmatch successful!')
-                    soup = BeautifulSoup(page)
+                    soup = BeautifulSoup(page, 'lxml')
                     ## Extract all table in the html page
                     dic_tmp = {}
                     for idx, tr in enumerate(soup.find_all('tr')):
