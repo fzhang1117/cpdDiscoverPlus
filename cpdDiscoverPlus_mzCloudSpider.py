@@ -64,7 +64,7 @@ def func_mzCloudReference(query, formula, RefID_List):
             with urlopen(url) as f:
                 page = f.read().decode('utf-8')
                 formulaSearch = re.findall('Formula:.*\r', page)[0]
-                formulaSearch = re.sub('<SUB>|</SUB>', '', foumulaSearch)
+                formulaSearch = re.sub('<SUB>|</SUB>', '', formulaSearch)
                 formulaSearch = re.split('<Span>|</Span>', formulaSearch)[1]
                 if formula == formulaSearch:
                     print(query, 'matched the mzCloud Reference', RefID, '...\nmatch successful!')
